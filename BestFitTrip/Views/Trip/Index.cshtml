@@ -11,7 +11,8 @@
       .directionsTable{
         display: inline-block;
         width: 50%;
-        height: 50%
+        height: 50%;
+        vertical-align: top;
       }
 
       .form-row{
@@ -30,7 +31,7 @@
       }
       .panel{
         display: inline-block;
-        height: 300px;
+        height: 500px;
         width: 550px;
       }
       /* Optional: Makes the sample page fill the window. */
@@ -56,6 +57,7 @@
         font-family: 'Roboto','sans-serif';
         line-height: 30px;
         padding-left: 10px;
+        
       }
 
       #right-panel select, #right-panel input {
@@ -70,9 +72,7 @@
         font-size: 12px;
       }
       #right-panel {
-        height: 300px;
-        /*float: right;*/
-        /*width: 49%;*/
+        height: 500px;
         display: inline-block;
         overflow: auto;
       }
@@ -214,7 +214,6 @@
                 <td>@ViewBag.orderedTrips[6].Destination<input id="end6" type="hidden" value="@ViewBag.orderedTrips[6].Destination"></td>
                 <td>@ViewBag.orderedTrips[6].Distance mi</td>
                 <td>@ViewBag.orderedTrips[6].Duration</td>
-                <td style="border:none;"><input id="submit6" type="button" class="btn btn-info" value="Directions"></td>
             </tr>
         }
       
@@ -260,13 +259,11 @@
           geocodeAddress(geocoder, map);
         });
 
-        //autocomplete
-          //autocomplete('address0');
-          //autocomplete('address1');
-          addresses = ['address0', 'address1', 'address2', 'address3', 'address4', 'address5', 'address6',];
-          for (i = 0; i < addresses.length; i++) {
-              autocomplete(addresses[i]);
-          } 
+        
+        var addresses = ['address0', 'address1', 'address2', 'address3', 'address4', 'address5', 'address6',];
+        for (i = 0; i < addresses.length; i++) {
+            autocomplete(addresses[i]);
+        } 
 
         ////directions
           
@@ -293,11 +290,7 @@
           calculateAndDisplayRoute(directionsService, directionsRenderer, 'start6', 'end6', mode);
         });
         
-        
-        // document.getElementById('submit1').addEventListener('click', function() {
-        //   calculateAndDisplayRoute(directionsService, directionsRenderer);
-        // });
-        /////
+       
       }
 
       function geocodeAddress(geocoder, resultsMap) {
@@ -357,7 +350,7 @@
       }
 </script >
 <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClGGZWgr5ZIAJMe3yMmaW2dN1oAPqle88&callback=initMap&libraries=places">
-</script>  
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClGGZWgr5ZIAJMe3yMmaW2dN1oAPqle88&callback=initMap&libraries=places"></script>
+
     
 
