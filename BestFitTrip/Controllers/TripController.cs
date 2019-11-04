@@ -47,11 +47,12 @@ namespace BestFitTrip.Controllers
                 {
                     destinations.Add(addTripViewModel.address6);
                 }
-
-                ViewBag.orderedTrips = DestinationValue.GetDistancesOrdered(origin, destinations);
+                
+                string mode = addTripViewModel.Type.ToString().ToLower();
+                ViewBag.orderedTrips = DestinationValue.GetDistancesOrdered(origin, destinations, mode);
                 
 
-                return View();
+                return View(addTripViewModel);
             }
             return View(addTripViewModel);
         }

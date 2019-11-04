@@ -1,15 +1,42 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using BestFitTrip.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BestFitTrip.ViewModels
 {
     public class AddTripViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "You must give a starting location")]
         public string address0 { get; set; }
 
-        [Required]
+        [Display(Name = "Travel Mode")]
+        public ModeType Type { get; set; }
+        public List<SelectListItem> ModeTypes { get; set; }
+
+        public AddTripViewModel()
+        {
+            ModeTypes = new List<SelectListItem>();
+
+            ModeTypes.Add(new SelectListItem
+            {
+                Value = ((int)ModeType.Driving).ToString(),
+                Text = ModeType.Driving.ToString()
+            });
+            ModeTypes.Add(new SelectListItem
+            {
+                Value = ((int)ModeType.Transit).ToString(),
+                Text = ModeType.Transit.ToString()
+            });
+            ModeTypes.Add(new SelectListItem
+            {
+                Value = ((int)ModeType.Walking).ToString(),
+                Text = ModeType.Walking.ToString()
+            });
+        }
+
+        [Required(ErrorMessage = "You must give at least 1 destination")]
         public string address1 { get; set; }
 
         public string address2 { get; set; }
@@ -22,16 +49,6 @@ namespace BestFitTrip.ViewModels
 
         public string address6 { get; set; }
 
-        //public static Trip CreateTrip(string start, string destination1,
-        //    string destination2, string destination3, string destination4,
-        //    string destination5, string destination6)
-        //{
-
-        //}
-
-        public AddTripViewModel()
-        {
-
-        }
+        
     }
 }

@@ -88,21 +88,12 @@
             <span asp-validation-for="address0" class="text-danger"></span>
         </div>
 
-        <div class="form-check-inline">
-          <label class="form-check-label">
-            <input id="DRIVING" type="radio" class="form-check-input" name="mode" value="DRIVING" checked>Driving
-          </label>
+        <div class="form-group col-sm-6">
+            <label asp-for="Type"></label>
+            <select class="form-control" asp-for="Type" asp-items="Model.ModeTypes"></select>
+            <span asp-validation-for="Type" class="text-danger"></span>
         </div>
-        <div class="form-check-inline">
-          <label class="form-check-label">
-            <input id="WALKING" type="radio" class="form-check-input" name="mode" value="WALKING" >Walking
-          </label>
-        </div>
-        <div class="form-check-inline disabled">
-          <label class="form-check-label">
-            <input id="TRANSIT" type="radio" class="form-check-input" name="mode" value="TRANSIT">Transit
-          </label>
-        </div>
+
       
       </div>
 
@@ -141,7 +132,7 @@
       </div>
 
       <input type="submit" class="btn btn-info" value="Submit">
-        <input id="submit" type="button" class="btn btn-info" value="Show On Map">
+        <input id="submit" type="button" class="btn btn-danger" value="Show On Map">
         
     </form>
 
@@ -166,64 +157,59 @@
     </thead>
     <tbody>
       <tr>
-        <td>1</td>
+        <td><input id="submit1" type="button" class="btn btn-info" value="Step 1"></td>
         <td>@ViewBag.orderedTrips[0].Destination<input id="start1" type="hidden" value="@ViewBag.orderedTrips[0].Destination"></td>
         <td>@ViewBag.orderedTrips[1].Destination<input id="end1" type="hidden" value="@ViewBag.orderedTrips[1].Destination"></td>
         <td>@ViewBag.orderedTrips[1].Distance mi</td>
         <td>@ViewBag.orderedTrips[1].Duration</td>
-        <td style="border:none;"><input id="submit1" type="button" class="btn btn-info" value="Directions"></td>
       </tr>
 
         @if (ViewBag.orderedTrips.Count > 2)
         {
             <tr>
-                <td>2</td>
+                <td><input id="submit2" type="button" class="btn btn-info" value="Step 2"></td>
                 <td>@ViewBag.orderedTrips[1].Destination<input id="start2" type="hidden" value="@ViewBag.orderedTrips[1].Destination"></td>
                 <td>@ViewBag.orderedTrips[2].Destination<input id="end2" type="hidden" value="@ViewBag.orderedTrips[2].Destination"></td>
                 <td>@ViewBag.orderedTrips[2].Distance mi</td>
                 <td>@ViewBag.orderedTrips[2].Duration</td>
-                <td style="border:none;"><input id="submit2" type="button" class="btn btn-info" value="Directions"></td>
             </tr>
 
         }
         @if (ViewBag.orderedTrips.Count > 3)
         {
             <tr>
-                <td>3</td>
+                <td><input id="submit3" type="button" class="btn btn-info" value="Step 3"></td>
                 <td>@ViewBag.orderedTrips[2].Destination<input id="start3" type="hidden" value="@ViewBag.orderedTrips[2].Destination"></td>
                 <td>@ViewBag.orderedTrips[3].Destination<input id="end3" type="hidden" value="@ViewBag.orderedTrips[3].Destination"></td>
                 <td>@ViewBag.orderedTrips[3].Distance mi</td>
                 <td>@ViewBag.orderedTrips[3].Duration</td>
-                <td style="border:none;"><input id="submit3" type="button" class="btn btn-info" value="Directions"></td>
             </tr>
 
         }
         @if (ViewBag.orderedTrips.Count > 4)
         {
             <tr>
-                <td>4</td>
+                <td><input id="submit4" type="button" class="btn btn-info" value="Step 4"></td>
                 <td>@ViewBag.orderedTrips[3].Destination<input id="start4" type="hidden" value="@ViewBag.orderedTrips[3].Destination"></td>
                 <td>@ViewBag.orderedTrips[4].Destination<input id="end4" type="hidden" value="@ViewBag.orderedTrips[4].Destination"></td>
                 <td>@ViewBag.orderedTrips[4].Distance mi</td>
                 <td>@ViewBag.orderedTrips[4].Duration</td>
-                <td style="border:none;"><input id="submit4" type="button" class="btn btn-info" value="Directions"></td>
             </tr>
         }
         @if (ViewBag.orderedTrips.Count > 5)
         {
             <tr>
-                <td>5</td>
+                <td><input id="submit5" type="button" class="btn btn-info" value="Step 5"></td>
                 <td>@ViewBag.orderedTrips[4].Destination<input id="start5" type="hidden" value="@ViewBag.orderedTrips[4].Destination"></td>
                 <td>@ViewBag.orderedTrips[5].Destination<input id="end5" type="hidden" value="@ViewBag.orderedTrips[5].Destination"></td>
                 <td>@ViewBag.orderedTrips[5].Distance mi</td>
                 <td>@ViewBag.orderedTrips[5].Duration</td>
-                <td style="border:none;"><input id="submit5" type="button" class="btn btn-info" value="Directions"></td>
             </tr>
         }
         @if (ViewBag.orderedTrips.Count > 6)
         {
             <tr>
-                <td>6</td>
+                <td><input id="submit6" type="button" class="btn btn-info" value="Step 6"></td>
                 <td>@ViewBag.orderedTrips[5].Destination<input id="start6" type="hidden" value="@ViewBag.orderedTrips[5].Destination"></td>
                 <td>@ViewBag.orderedTrips[6].Destination<input id="end6" type="hidden" value="@ViewBag.orderedTrips[6].Destination"></td>
                 <td>@ViewBag.orderedTrips[6].Distance mi</td>
@@ -251,6 +237,12 @@
 
 
 <script>
+
+    function autocomplete(address) {
+        var input = document.getElementById(address);
+        var autocomplete = new google.maps.places.Autocomplete(input);
+    }
+
       function initMap() {
         var directionsService = new google.maps.DirectionsService();
         var directionsRenderer = new google.maps.DirectionsRenderer();
@@ -268,15 +260,19 @@
           geocodeAddress(geocoder, map);
         });
 
+        //autocomplete
+          //autocomplete('address0');
+          //autocomplete('address1');
+          addresses = ['address0', 'address1', 'address2', 'address3', 'address4', 'address5', 'address6',];
+          for (i = 0; i < addresses.length; i++) {
+              autocomplete(addresses[i]);
+          } 
+
         ////directions
-        var mode;
-        if (document.getElementById('DRIVING').checked) {
-          mode = document.getElementById('DRIVING').value;
-        }else if (document.getElementById('WALKING').checked) {
-          mode = document.getElementById('WALKING').value;
-        }else if (document.getElementById('TRANSIT').checked) {
-          mode = document.getElementById('TRANSIT').value;
-        }
+          
+        var modeElement = document.getElementById("Type");
+        var mode = modeElement.options[modeElement.selectedIndex].text.toUpperCase();
+          
 
         document.getElementById('submit1').addEventListener('click', function() {
           calculateAndDisplayRoute(directionsService, directionsRenderer, 'start1', 'end1', mode);
@@ -305,7 +301,7 @@
       }
 
       function geocodeAddress(geocoder, resultsMap) {
-        var addresses = ['address1', 'address2', 'address3', 'address4','address5']
+        var addresses = ['address1', 'address2', 'address3', 'address4','address5', 'address6']
         var marker;
         var number = 1;
         for (i = 0; i < addresses.length; i++) {
@@ -359,9 +355,9 @@
               }
             });
       }
-        
-    </script>
+</script >
 <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClGGZWgr5ZIAJMe3yMmaW2dN1oAPqle88&callback=initMap">
-</script>
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClGGZWgr5ZIAJMe3yMmaW2dN1oAPqle88&callback=initMap&libraries=places">
+</script>  
+    
 

@@ -51,19 +51,21 @@ namespace BestFitTrip.Models
             {
                 if (element.Status == "OK")
                 {
-                    distances.Add(matrix.Destination_Addresses[i], new DestinationValue()
+                    distances.Add(destinations[i], new DestinationValue()
                     {
                         Distance = (double)(long)element.Distance["value"],
-                        Duration = element.Duration["text"].ToString()
+                        Duration = element.Duration["text"].ToString(),
+                        Order = i
                     });
 
                 }
                 else
                 {
-                    distances.Add(matrix.Destination_Addresses[i], new DestinationValue()
+                    distances.Add(destinations[i], new DestinationValue()
                     {
                         Distance = 9999999999999,
-                        Duration = "No Results"
+                        Duration = "No Results",
+                        Order = i
                     });
                 }
 
@@ -75,23 +77,20 @@ namespace BestFitTrip.Models
         public static ICollection<DestinationValue> GetDistancesOrdered(string origin, List<string> destinations,
             string mode = "driving", string orderBy = "distance")
         {
-            DistanceMatrix matrix = new DistanceMatrix();
-            matrix = GetMatrix(origin, destinations, mode);
-            var DestinationsFixed = matrix.Destination_Addresses;
-
+            int count = destinations.Count;
 
             var distancesOrdered = new List<DestinationValue>() { new DestinationValue() {
                 Destination = origin,
                 Distance = 0,
                 Duration = "Start",
                 Order = 0 } };
-            int count = destinations.Count;
+            
 
             ///may have to write code to add destinationvalues to database
 
             for (int i = 1; i <= count; i++)
             {
-                var distances = GetDistances(origin, DestinationsFixed, mode);
+                var distances = GetDistances(origin, destinations, mode);
                 var shortest = new KeyValuePair<string, DestinationValue>();
                 if (orderBy == "distance")
                 {
@@ -123,7 +122,7 @@ namespace BestFitTrip.Models
 
                 //next round
                 origin = shortest.Key;
-                DestinationsFixed.Remove(shortest.Key);
+                destinations.RemoveAt(shortest.Value.Order);
 
 
 
