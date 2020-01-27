@@ -47,7 +47,7 @@ namespace BestFitTrip.Controllers
                     registerUserViewModel.Password);
                 //UserData.AddUser(newUser);
 
-                ViewBag.newUserWelcome = newUser.Username;
+                //ViewBag.newUserWelcome = newUser.Username;
                 return View("Index");//, UserData.GetAll());
             }
 

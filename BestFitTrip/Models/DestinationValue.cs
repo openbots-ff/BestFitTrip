@@ -74,7 +74,7 @@ namespace BestFitTrip.Models
             return distances;
         }
 
-        public static ICollection<DestinationValue> GetDistancesOrdered(string origin, List<string> destinations,
+        public static List<DestinationValue> GetDistancesOrdered(string origin, List<string> destinations,
             string mode = "driving", string orderBy = "distance")
         {
             int count = destinations.Count;

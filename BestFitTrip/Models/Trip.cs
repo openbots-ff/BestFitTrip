@@ -10,7 +10,7 @@ namespace BestFitTrip.Models
     {
         public int ID { get; set; }
         public string Title { get; set; }
-        public ICollection<DestinationValue> Trips { get; set; }
+        public List<DestinationValue> DestinationValues { get; set; }
 
         public int UserID { get; set; }
         public User User { get; set; }

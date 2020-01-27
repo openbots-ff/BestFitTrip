@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BestFitTrip.Migrations
 {
     [DbContext(typeof(TripDbContext))]
-    [Migration("20191029005731_initial")]
-    partial class initial
+    [Migration("20200126200342_update1")]
+    partial class update1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -93,7 +93,7 @@ namespace BestFitTrip.Migrations
             modelBuilder.Entity("BestFitTrip.Models.DestinationValue", b =>
                 {
                     b.HasOne("BestFitTrip.Models.Trip", "Trip")
-                        .WithMany("Trips")
+                        .WithMany("DestinationValues")
                         .HasForeignKey("TripID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

@@ -24,7 +24,7 @@ namespace BestFitTrip.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=localhost,1433; Database=TripDb1;User=SA; Password=<SHINee5252008>");
+            optionsBuilder.UseSqlServer("Server=localhost,1433; Database=BestFitDb; User=SA; Password=<YourStrong@Passw0rd>");
 
         }
     }

@@ -19,11 +19,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\Trip\" />
     <Folder Include="Views\User\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 </Project>
