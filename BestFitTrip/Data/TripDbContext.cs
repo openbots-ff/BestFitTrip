@@ -11,10 +11,10 @@ namespace BestFitTrip.Data
         public DbSet<DestinationValue> DestinationValues { get; set; }
 
 
-        //public TripDbContext(DbContextOptions<TripDbContext> options)
-        //    : base(options)
-        //{
-        //}
+        public TripDbContext(DbContextOptions<TripDbContext> options)
+            : base(options)
+        {
+        }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{

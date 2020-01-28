@@ -142,89 +142,92 @@
 
     @if (ViewBag.orderedTrips != null)
     {
-        <div class="directionsTable">
-      
+<div class="directionsTable">
+
     <table class="table table-bordered" style="border-right:none; float:left">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Start</th>
-        <th>End</th>
-        <th>Distance</th>
-        <th>Duration</th>
-        <!-- <th style="border:none;" ><input id="save" type="button" class="btn btn-danger" value="Save Trip" style="layout:center"></th> -->
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><input id="submit1" type="button" class="btn btn-info" value="Step 1"></td>
-        <td>@ViewBag.orderedTrips[0].Destination<input id="start1" type="hidden" value="@ViewBag.orderedTrips[0].Destination"></td>
-        <td>@ViewBag.orderedTrips[1].Destination<input id="end1" type="hidden" value="@ViewBag.orderedTrips[1].Destination"></td>
-        <td>@ViewBag.orderedTrips[1].Distance mi</td>
-        <td>@ViewBag.orderedTrips[1].Duration</td>
-      </tr>
-
-        @if (ViewBag.orderedTrips.Count > 2)
-        {
+        <thead>
             <tr>
-                <td><input id="submit2" type="button" class="btn btn-info" value="Step 2"></td>
-                <td>@ViewBag.orderedTrips[1].Destination<input id="start2" type="hidden" value="@ViewBag.orderedTrips[1].Destination"></td>
-                <td>@ViewBag.orderedTrips[2].Destination<input id="end2" type="hidden" value="@ViewBag.orderedTrips[2].Destination"></td>
-                <td>@ViewBag.orderedTrips[2].Distance mi</td>
-                <td>@ViewBag.orderedTrips[2].Duration</td>
+                <th></th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Distance</th>
+                <th>Duration</th>
+                <!-- <th style="border:none;" ><input id="save" type="button" class="btn btn-danger" value="Save Trip" style="layout:center"></th> -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input id="submit1" type="button" class="btn btn-info" value="Step 1"></td>
+                <td>@ViewBag.orderedTrips[0].Destination<input id="start1" type="hidden" value="@ViewBag.orderedTrips[0].Destination"></td>
+                <td>@ViewBag.orderedTrips[1].Destination<input id="end1" type="hidden" value="@ViewBag.orderedTrips[1].Destination"></td>
+                <td>@ViewBag.orderedTrips[1].Distance mi</td>
+                <td>@ViewBag.orderedTrips[1].Duration</td>
             </tr>
 
-        }
-        @if (ViewBag.orderedTrips.Count > 3)
-        {
-            <tr>
-                <td><input id="submit3" type="button" class="btn btn-info" value="Step 3"></td>
-                <td>@ViewBag.orderedTrips[2].Destination<input id="start3" type="hidden" value="@ViewBag.orderedTrips[2].Destination"></td>
-                <td>@ViewBag.orderedTrips[3].Destination<input id="end3" type="hidden" value="@ViewBag.orderedTrips[3].Destination"></td>
-                <td>@ViewBag.orderedTrips[3].Distance mi</td>
-                <td>@ViewBag.orderedTrips[3].Duration</td>
-            </tr>
+            @if (ViewBag.orderedTrips.Count > 2)
+            {
+                <tr>
+                    <td><input id="submit2" type="button" class="btn btn-info" value="Step 2"></td>
+                    <td>@ViewBag.orderedTrips[1].Destination<input id="start2" type="hidden" value="@ViewBag.orderedTrips[1].Destination"></td>
+                    <td>@ViewBag.orderedTrips[2].Destination<input id="end2" type="hidden" value="@ViewBag.orderedTrips[2].Destination"></td>
+                    <td>@ViewBag.orderedTrips[2].Distance mi</td>
+                    <td>@ViewBag.orderedTrips[2].Duration</td>
+                </tr>
 
-        }
-        @if (ViewBag.orderedTrips.Count > 4)
-        {
-            <tr>
-                <td><input id="submit4" type="button" class="btn btn-info" value="Step 4"></td>
-                <td>@ViewBag.orderedTrips[3].Destination<input id="start4" type="hidden" value="@ViewBag.orderedTrips[3].Destination"></td>
-                <td>@ViewBag.orderedTrips[4].Destination<input id="end4" type="hidden" value="@ViewBag.orderedTrips[4].Destination"></td>
-                <td>@ViewBag.orderedTrips[4].Distance mi</td>
-                <td>@ViewBag.orderedTrips[4].Duration</td>
-            </tr>
-        }
-        @if (ViewBag.orderedTrips.Count > 5)
-        {
-            <tr>
-                <td><input id="submit5" type="button" class="btn btn-info" value="Step 5"></td>
-                <td>@ViewBag.orderedTrips[4].Destination<input id="start5" type="hidden" value="@ViewBag.orderedTrips[4].Destination"></td>
-                <td>@ViewBag.orderedTrips[5].Destination<input id="end5" type="hidden" value="@ViewBag.orderedTrips[5].Destination"></td>
-                <td>@ViewBag.orderedTrips[5].Distance mi</td>
-                <td>@ViewBag.orderedTrips[5].Duration</td>
-            </tr>
-        }
-        @if (ViewBag.orderedTrips.Count > 6)
-        {
-            <tr>
-                <td><input id="submit6" type="button" class="btn btn-info" value="Step 6"></td>
-                <td>@ViewBag.orderedTrips[5].Destination<input id="start6" type="hidden" value="@ViewBag.orderedTrips[5].Destination"></td>
-                <td>@ViewBag.orderedTrips[6].Destination<input id="end6" type="hidden" value="@ViewBag.orderedTrips[6].Destination"></td>
-                <td>@ViewBag.orderedTrips[6].Distance mi</td>
-                <td>@ViewBag.orderedTrips[6].Duration</td>
-            </tr>
-        }
-      
-      
-    </tbody>
-  </table>
-  <label for="title">Title: 
-        <input id="title" type="text" name="title">
-      </label>
-      <input id="save" type="button" class="btn btn-danger" value="Save Trip">
-  </div>
+            }
+            @if (ViewBag.orderedTrips.Count > 3)
+            {
+                <tr>
+                    <td><input id="submit3" type="button" class="btn btn-info" value="Step 3"></td>
+                    <td>@ViewBag.orderedTrips[2].Destination<input id="start3" type="hidden" value="@ViewBag.orderedTrips[2].Destination"></td>
+                    <td>@ViewBag.orderedTrips[3].Destination<input id="end3" type="hidden" value="@ViewBag.orderedTrips[3].Destination"></td>
+                    <td>@ViewBag.orderedTrips[3].Distance mi</td>
+                    <td>@ViewBag.orderedTrips[3].Duration</td>
+                </tr>
+
+            }
+            @if (ViewBag.orderedTrips.Count > 4)
+            {
+                <tr>
+                    <td><input id="submit4" type="button" class="btn btn-info" value="Step 4"></td>
+                    <td>@ViewBag.orderedTrips[3].Destination<input id="start4" type="hidden" value="@ViewBag.orderedTrips[3].Destination"></td>
+                    <td>@ViewBag.orderedTrips[4].Destination<input id="end4" type="hidden" value="@ViewBag.orderedTrips[4].Destination"></td>
+                    <td>@ViewBag.orderedTrips[4].Distance mi</td>
+                    <td>@ViewBag.orderedTrips[4].Duration</td>
+                </tr>
+            }
+            @if (ViewBag.orderedTrips.Count > 5)
+            {
+                <tr>
+                    <td><input id="submit5" type="button" class="btn btn-info" value="Step 5"></td>
+                    <td>@ViewBag.orderedTrips[4].Destination<input id="start5" type="hidden" value="@ViewBag.orderedTrips[4].Destination"></td>
+                    <td>@ViewBag.orderedTrips[5].Destination<input id="end5" type="hidden" value="@ViewBag.orderedTrips[5].Destination"></td>
+                    <td>@ViewBag.orderedTrips[5].Distance mi</td>
+                    <td>@ViewBag.orderedTrips[5].Duration</td>
+                </tr>
+            }
+            @if (ViewBag.orderedTrips.Count > 6)
+            {
+                <tr>
+                    <td><input id="submit6" type="button" class="btn btn-info" value="Step 6"></td>
+                    <td>@ViewBag.orderedTrips[5].Destination<input id="start6" type="hidden" value="@ViewBag.orderedTrips[5].Destination"></td>
+                    <td>@ViewBag.orderedTrips[6].Destination<input id="end6" type="hidden" value="@ViewBag.orderedTrips[6].Destination"></td>
+                    <td>@ViewBag.orderedTrips[6].Distance mi</td>
+                    <td>@ViewBag.orderedTrips[6].Duration</td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+    <form asp-controller="Trip" asp-action="SaveTrip" method="post">
+        <label for="title">
+            Title:
+            <input id="title" type="text" name="title">
+        </label>
+        <input id="save" type="submit" class="btn btn-danger" value="Save Trip">
+    </form>
+</div>
     }
     
 
