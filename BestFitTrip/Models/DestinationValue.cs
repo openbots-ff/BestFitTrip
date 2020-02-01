@@ -17,9 +17,11 @@ namespace BestFitTrip.Models
         public int TripID { get; set; }
         public Trip Trip { get; set; }
 
-
         public static DistanceMatrix GetMatrix(string origin, List<string> destinations, string mode = "driving")
         {
+            Key newkey = new Key();
+            string key = newkey.getKey();
+            
             using (WebClient wc = new WebClient())
             {
                 string url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" +
@@ -28,23 +30,20 @@ namespace BestFitTrip.Models
                 {
                     url += destination + "|";
                 }
-                url += "&key=AIzaSyClGGZWgr5ZIAJMe3yMmaW2dN1oAPqle88&mode=" + mode;
+                url += "&key=" + key + "&mode=" + mode;
 
                 var json = wc.DownloadString(url);
                 DistanceMatrix matrix = JsonConvert.DeserializeObject<DistanceMatrix>(json);
 
                 return matrix;
-
             }
         }
 
         public static Dictionary<string, DestinationValue> GetDistances(string origin, List<string> destinations, string mode = "driving")
         {
-            DistanceMatrix matrix = new DistanceMatrix();
-            matrix = GetMatrix(origin, destinations, mode);
+            DistanceMatrix matrix = GetMatrix(origin, destinations, mode);
 
             var distances = new Dictionary<string, DestinationValue>();
-
 
             int i = 0;
             foreach (var element in matrix.Rows[0].Elements)
@@ -57,7 +56,6 @@ namespace BestFitTrip.Models
                         Duration = element.Duration["text"].ToString(),
                         Order = i
                     });
-
                 }
                 else
                 {
@@ -68,7 +66,6 @@ namespace BestFitTrip.Models
                         Order = i
                     });
                 }
-
                 i++;
             }
             return distances;
@@ -85,9 +82,6 @@ namespace BestFitTrip.Models
                 Duration = "Start",
                 Order = 0 } };
             
-
-            ///may have to write code to add destinationvalues to database
-
             for (int i = 1; i <= count; i++)
             {
                 var distances = GetDistances(origin, destinations, mode);
@@ -111,7 +105,6 @@ namespace BestFitTrip.Models
                     distanceTemp = Math.Round(distanceTemp / 1609.344);
                 }
 
-
                 distancesOrdered.Add(new DestinationValue()
                 {
                     Destination = shortest.Key,
@@ -123,11 +116,7 @@ namespace BestFitTrip.Models
                 //next round
                 origin = shortest.Key;
                 destinations.RemoveAt(shortest.Value.Order);
-
-
-
             }
-
             return distancesOrdered;
         }
     }

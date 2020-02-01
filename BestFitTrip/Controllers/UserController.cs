@@ -9,6 +9,7 @@ using BestFitTrip.ViewModels;
 using Microsoft.AspNetCore.Session;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using System.Security.Cryptography;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,6 +19,7 @@ namespace BestFitTrip.Controllers
     {
         private readonly TripDbContext context;
         private IHttpContextAccessor _contextAccessor;
+        private MD5 md5Hash = MD5.Create();
 
         public UserController(TripDbContext dbContext, IHttpContextAccessor contextAccessor)
         {
@@ -38,17 +40,25 @@ namespace BestFitTrip.Controllers
             if (ModelState.IsValid)
             {
                 User user = context.Users.Where(x => x.Username == loginUserViewModel.Username).SingleOrDefault();
-                if (user != null && user.Password == loginUserViewModel.Password)
+                //string hash = HashService.GetMd5Hash(md5Hash, user.Password);
+                if (user != null && HashService.VerifyMd5Hash(md5Hash, loginUserViewModel.Password, user.Password))
                 {
                     //Session["username"] = user.Username;
                     //HttpContext.Session.SetString("SessionUsername", user.Username);
                     //var context = _contextAccessor.HttpContext;
                     //context.Session.SetString("SessionUsername", user.Username);
                     TempData["user"] = JsonConvert.SerializeObject(user);
+                    //TempData.Keep();
                 }
                 return Redirect("/");
             }
             return View(loginUserViewModel);
+        }
+
+        public IActionResult Logout()
+        {
+            TempData["user"] = null;
+            return Redirect("/User");
         }
 
         public IActionResult Register()
@@ -65,10 +75,12 @@ namespace BestFitTrip.Controllers
             {
                 if (context.Users.Where(x => x.Username == registerUserViewModel.Username).SingleOrDefault() == null)
                 {
+                    string hash = HashService.GetMd5Hash(md5Hash, registerUserViewModel.Password);
+
                     User newUser = RegisterUserViewModel.CreateUser(
                     registerUserViewModel.Username,
                     registerUserViewModel.Email,
-                    registerUserViewModel.Password);
+                    hash);
                     
                     context.Users.Add(newUser);
                     context.SaveChanges();

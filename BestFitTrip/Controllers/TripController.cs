@@ -61,12 +61,13 @@ namespace BestFitTrip.Controllers
                 {
                     destinations.Add(addTripViewModel.address6);
                 }
-                
+
                 string mode = addTripViewModel.Type.ToString().ToLower();
                 List<DestinationValue> destinationValues = DestinationValue.GetDistancesOrdered(origin, destinations, mode);
                 ViewBag.orderedTrips = destinationValues;
 
                 TempData["destinationValues"] = JsonConvert.SerializeObject(destinationValues);//destinationValues;
+                TempData["mode"] = mode;
 
                 return View(addTripViewModel);
             }
@@ -92,7 +93,7 @@ namespace BestFitTrip.Controllers
                 {
                     DestinationValues = destinationValues,
                     Title = title,
-                    //User = user,
+                    Mode = TempData["mode"].ToString(),
                     UserID = user.ID
                 };
 
@@ -134,6 +135,15 @@ namespace BestFitTrip.Controllers
             context.SaveChanges();
 
             return Redirect("/Trip/MyTrips");
+        }
+
+        [HttpGet]
+        public IActionResult GetDirections(int tripID)
+        {
+            Trip trip = context.Trips.Include("DestinationValues").Single(t => t.ID == tripID);
+            ViewBag.MyTrip = trip;
+
+            return View();
         }
     }
 }

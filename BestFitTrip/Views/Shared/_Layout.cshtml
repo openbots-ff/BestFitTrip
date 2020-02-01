@@ -17,17 +17,26 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Index">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Register">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Trip" asp-action="MyTrips">MyTrips</a>
-                        </li>
-                    </ul>
+                    <ul class="navbar-nav navbar-right">
+
+                        
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Index">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Register">Register</a>
+                            </li>
+                        
+
+
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Trip" asp-action="MyTrips">MyTrips</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
+                            </li>
+
+                        </ul>
                 </div>
             </div>
         </nav>
@@ -38,117 +47,7 @@
         </main>
     </div>
 
-    <script>function autocomplete(address) {
-            var input = document.getElementById(address);
-            var autocomplete = new google.maps.places.Autocomplete(input);
-        }
-
-        function initMap() {
-            var directionsService = new google.maps.DirectionsService();
-            var directionsRenderer = new google.maps.DirectionsRenderer();
-
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 4,
-                center: { lat: 39.5, lng: -100.5 }
-            });
-            var geocoder = new google.maps.Geocoder();
-
-            directionsRenderer.setMap(map);
-            directionsRenderer.setPanel(document.getElementById('right-panel'));
-
-            document.getElementById('submit').addEventListener('click', function () {
-                geocodeAddress(geocoder, map);
-            });
-
-
-            var addresses = ['address0', 'address1', 'address2', 'address3', 'address4', 'address5', 'address6',];
-            for (i = 0; i < addresses.length; i++) {
-                autocomplete(addresses[i]);
-            }
-
-            ////directions
-
-            var modeElement = document.getElementById("Type");
-            var mode = modeElement.options[modeElement.selectedIndex].text.toUpperCase();
-
-
-            document.getElementById('submit1').addEventListener('click', function () {
-                calculateAndDisplayRoute(directionsService, directionsRenderer, 'start1', 'end1', mode);
-            });
-            document.getElementById('submit2').addEventListener('click', function () {
-                calculateAndDisplayRoute(directionsService, directionsRenderer, 'start2', 'end2', mode);
-            });
-            document.getElementById('submit3').addEventListener('click', function () {
-                calculateAndDisplayRoute(directionsService, directionsRenderer, 'start3', 'end3', mode);
-            });
-            document.getElementById('submit4').addEventListener('click', function () {
-                calculateAndDisplayRoute(directionsService, directionsRenderer, 'start4', 'end4', mode);
-            });
-            document.getElementById('submit5').addEventListener('click', function () {
-                calculateAndDisplayRoute(directionsService, directionsRenderer, 'start5', 'end5', mode);
-            });
-            document.getElementById('submit6').addEventListener('click', function () {
-                calculateAndDisplayRoute(directionsService, directionsRenderer, 'start6', 'end6', mode);
-            });
-
-
-        }
-
-        function geocodeAddress(geocoder, resultsMap) {
-            var addresses = ['address1', 'address2', 'address3', 'address4', 'address5', 'address6']
-            var marker;
-            var number = 1;
-            for (i = 0; i < addresses.length; i++) {
-                var address = document.getElementById(addresses[i]).value;
-                geocoder.geocode({ 'address': address }, function (results, status) {
-                    if (status === 'OK') {
-                        //resultsMap.setCenter(results[0].geometry.location);
-                        marker = new google.maps.Marker({
-                            map: resultsMap,
-                            position: results[0].geometry.location,
-                            //icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=' +
-                            //number + '|FF0000|000000'
-                        });
-                        number++;
-                    }
-                    // else {
-                    //   alert('Geocode was not successful for the following reason: ' + status);
-                    // }
-                });
-            }
-            var centerAddress = document.getElementById('address0').value;
-            geocoder.geocode({ 'address': centerAddress }, function (results, status) {
-                if (status === 'OK') {
-                    resultsMap.setCenter(results[0].geometry.location);
-                    marker = new google.maps.Marker({
-                        map: resultsMap,
-                        position: results[0].geometry.location,
-                        //icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=0|00FF00|000000'
-                    });
-                } else {
-                    alert('Geocode was not successful for the following reason: ' + status);
-                }
-            });
-        }
-
-        function calculateAndDisplayRoute(directionsService, directionsRenderer, start, end, mode) {
-            //var waypts = ['address1', 'address2', 'address3', 'address4'];
-            directionsService.route(
-                {
-                    origin: { query: document.getElementById(start).value },
-                    destination: { query: document.getElementById(end).value },
-                    //waypoints: {query: document.getElementsByClassName('waypoint').value},
-                    //optimizeWaypoints: true,
-                    travelMode: mode
-                },
-                function (response, status) {
-                    if (status === 'OK') {
-                        directionsRenderer.setDirections(response);
-                    } else {
-                        window.alert('Directions request failed due to ' + status);
-                    }
-                });
-        }</script>
+    
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClGGZWgr5ZIAJMe3yMmaW2dN1oAPqle88&callback=initMap&libraries=places"></script>
 
