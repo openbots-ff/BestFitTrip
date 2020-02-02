@@ -83,7 +83,7 @@ namespace BestFitTrip.Controllers
 
                 return Redirect("/Trip/MyTrips");
             }
-            return Redirect("/User");
+            return Redirect("/User/Login");
         }
 
         [HttpGet]
@@ -100,10 +100,7 @@ namespace BestFitTrip.Controllers
                 TempData.Keep(); //dont delete
                 return View();
             }
-            else
-            {
-                return Redirect("/User");
-            }
+            return Redirect("/User/Login");
         }
 
         [HttpPost]
@@ -119,18 +116,21 @@ namespace BestFitTrip.Controllers
         [HttpGet]
         public IActionResult GetDirections(int tripID)
         {
-            object u;
-            TempData.TryGetValue("user", out u);
-            User user = JsonConvert.DeserializeObject<User>((string)u);
-            user = context.Users.Include("Trips").Where(x => x.ID == user.ID).SingleOrDefault();
-
-            if (user != null && ContainsTrip(user, tripID))
+            if (TempData["user"] != null)
             {
-                Trip trip = context.Trips.Include("DestinationValues").Single(t => t.ID == tripID);
-                ViewBag.MyTrip = trip;
+                object u;
+                TempData.TryGetValue("user", out u);
+                User user = JsonConvert.DeserializeObject<User>((string)u);
+                user = context.Users.Include("Trips").Where(x => x.ID == user.ID).SingleOrDefault();
 
-                return View();
-            }
+                if (user != null && ContainsTrip(user, tripID))
+                {
+                    Trip trip = context.Trips.Include("DestinationValues").Single(t => t.ID == tripID);
+                    ViewBag.MyTrip = trip;
+
+                    return View();
+                }
+            } 
             return Redirect("/");
         }
 
