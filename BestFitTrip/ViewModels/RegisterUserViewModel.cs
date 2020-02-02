@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using BestFitTrip.Models;
 
@@ -8,9 +9,11 @@ namespace BestFitTrip.ViewModels
     {
 
         [Required]
+        [MinLength(6)]
         public string Username { get; set; }
 
         [EmailAddress]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Required]
@@ -21,6 +24,7 @@ namespace BestFitTrip.ViewModels
         [Required]
         [Compare("Password")]
         [DataType(DataType.Password)]
+        [DisplayName("Verify Password")]
         public string Verify { get; set; }
 
         public static User CreateUser(string username, string email, string password)

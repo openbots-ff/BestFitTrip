@@ -1,84 +1,85 @@
-﻿
-    <div class="directionsTable">
+﻿@{ViewData["Title"] = "My Trips"; }
+<h1 class="text-info">@ViewBag.Username's Trips</h1>
+<div class="directionsTable">
 
-        @foreach (Trip trip in ViewBag.MyTrips)
-        {
-            <h2>@trip.Title</h2>
-            <p>Travel Mode: <span id="mode">@trip.Mode</span></p>
-            <form asp-controller="Trip" asp-action="GetDirections" method="get" style="display: inline-block">
-                <input type="hidden" name="tripID" value="@trip.ID" />
-                <input type="submit" value="Get Directions" class="btn btn-info" />
-            </form>
-            <form asp-controller="Trip" asp-action="Delete" method="post" style="display: inline-block">
-                <input type="hidden" name="tripID" value="@trip.ID" />
-                <input type="submit" value="Delete" class="btn btn-danger" />
-            </form>
-            <table class="table table-bordered" style="border-right:none; float:left">
-                <thead>
+    @foreach (Trip trip in ViewBag.MyTrips)
+    {
+        <h2>@trip.Title</h2>
+        <p>Travel Mode: <span id="mode">@trip.Mode</span></p>
+        <form asp-controller="Trip" asp-action="GetDirections" method="get" style="display: inline-block">
+            <input type="hidden" name="tripID" value="@trip.ID" />
+            <input type="submit" value="Get Directions" class="btn btn-info" />
+        </form>
+        <form asp-controller="Trip" asp-action="Delete" method="post" style="display: inline-block">
+            <input type="hidden" name="tripID" value="@trip.ID" />
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </form>
+        <table class="table table-bordered" style="border-right:none; float:left">
+            <thead>
+                <tr>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Distance</th>
+                    <th>Duration</th>
+                    <!-- <th style="border:none;" ><input id="save" type="button" class="btn btn-danger" value="Save Trip" style="layout:center"></th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@trip.DestinationValues[0].Destination<input id="start1" type="hidden" value="@trip.DestinationValues[0].Destination"></td>
+                    <td>@trip.DestinationValues[1].Destination<input id="end1" type="hidden" value="@trip.DestinationValues[1].Destination"></td>
+                    <td>@trip.DestinationValues[1].Distance mi</td>
+                    <td>@trip.DestinationValues[1].Duration</td>
+                </tr>
+
+                @if (trip.DestinationValues.Count > 2)
+                {
                     <tr>
-                        <th>Start</th>
-                        <th>End</th>
-                        <th>Distance</th>
-                        <th>Duration</th>
-                        <!-- <th style="border:none;" ><input id="save" type="button" class="btn btn-danger" value="Save Trip" style="layout:center"></th> -->
+                        <td>@trip.DestinationValues[1].Destination<input id="start2" type="hidden" value="@trip.DestinationValues[1].Destination"></td>
+                        <td>@trip.DestinationValues[2].Destination<input id="end2" type="hidden" value="@trip.DestinationValues[2].Destination"></td>
+                        <td>@trip.DestinationValues[2].Distance mi</td>
+                        <td>@trip.DestinationValues[2].Duration</td>
                     </tr>
-                </thead>
-                <tbody>
+
+                }
+                @if (trip.DestinationValues.Count > 3)
+                {
                     <tr>
-                        <td>@trip.DestinationValues[0].Destination<input id="start1" type="hidden" value="@trip.DestinationValues[0].Destination"></td>
-                        <td>@trip.DestinationValues[1].Destination<input id="end1" type="hidden" value="@trip.DestinationValues[1].Destination"></td>
-                        <td>@trip.DestinationValues[1].Distance mi</td>
-                        <td>@trip.DestinationValues[1].Duration</td>
+                        <td>@trip.DestinationValues[2].Destination<input id="start3" type="hidden" value="@trip.DestinationValues[2].Destination"></td>
+                        <td>@trip.DestinationValues[3].Destination<input id="end3" type="hidden" value="@trip.DestinationValues[3].Destination"></td>
+                        <td>@trip.DestinationValues[3].Distance mi</td>
+                        <td>@trip.DestinationValues[3].Duration</td>
                     </tr>
 
-                    @if (trip.DestinationValues.Count > 2)
-                    {
-                        <tr>
-                            <td>@trip.DestinationValues[1].Destination<input id="start2" type="hidden" value="@trip.DestinationValues[1].Destination"></td>
-                            <td>@trip.DestinationValues[2].Destination<input id="end2" type="hidden" value="@trip.DestinationValues[2].Destination"></td>
-                            <td>@trip.DestinationValues[2].Distance mi</td>
-                            <td>@trip.DestinationValues[2].Duration</td>
-                        </tr>
-
-                    }
-                    @if (trip.DestinationValues.Count > 3)
-                    {
-                        <tr>
-                            <td>@trip.DestinationValues[2].Destination<input id="start3" type="hidden" value="@trip.DestinationValues[2].Destination"></td>
-                            <td>@trip.DestinationValues[3].Destination<input id="end3" type="hidden" value="@trip.DestinationValues[3].Destination"></td>
-                            <td>@trip.DestinationValues[3].Distance mi</td>
-                            <td>@trip.DestinationValues[3].Duration</td>
-                        </tr>
-
-                    }
-                    @if (trip.DestinationValues.Count > 4)
-                    {
-                        <tr>
-                            <td>@trip.DestinationValues[3].Destination<input id="start4" type="hidden" value="@trip.DestinationValues[3].Destination"></td>
-                            <td>@trip.DestinationValues[4].Destination<input id="end4" type="hidden" value="@trip.DestinationValues[4].Destination"></td>
-                            <td>@trip.DestinationValues[4].Distance mi</td>
-                            <td>@trip.DestinationValues[4].Duration</td>
-                        </tr>
-                    }
-                    @if (trip.DestinationValues.Count > 5)
-                    {
-                        <tr>
-                            <td>@trip.DestinationValues[4].Destination<input id="start5" type="hidden" value="@trip.DestinationValues[4].Destination"></td>
-                            <td>@trip.DestinationValues[5].Destination<input id="end5" type="hidden" value="@trip.DestinationValues[5].Destination"></td>
-                            <td>@trip.DestinationValues[5].Distance mi</td>
-                            <td>@trip.DestinationValues[5].Duration</td>
-                        </tr>
-                    }
-                    @if (trip.DestinationValues.Count > 6)
-                    {
-                        <tr>
-                            <td>@trip.DestinationValues[5].Destination<input id="start6" type="hidden" value="@trip.DestinationValues[5].Destination"></td>
-                            <td>@trip.DestinationValues[6].Destination<input id="end6" type="hidden" value="@trip.DestinationValues[6].Destination"></td>
-                            <td>@trip.DestinationValues[6].Distance mi</td>
-                            <td>@trip.DestinationValues[6].Duration</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-    </div>
+                }
+                @if (trip.DestinationValues.Count > 4)
+                {
+                    <tr>
+                        <td>@trip.DestinationValues[3].Destination<input id="start4" type="hidden" value="@trip.DestinationValues[3].Destination"></td>
+                        <td>@trip.DestinationValues[4].Destination<input id="end4" type="hidden" value="@trip.DestinationValues[4].Destination"></td>
+                        <td>@trip.DestinationValues[4].Distance mi</td>
+                        <td>@trip.DestinationValues[4].Duration</td>
+                    </tr>
+                }
+                @if (trip.DestinationValues.Count > 5)
+                {
+                    <tr>
+                        <td>@trip.DestinationValues[4].Destination<input id="start5" type="hidden" value="@trip.DestinationValues[4].Destination"></td>
+                        <td>@trip.DestinationValues[5].Destination<input id="end5" type="hidden" value="@trip.DestinationValues[5].Destination"></td>
+                        <td>@trip.DestinationValues[5].Distance mi</td>
+                        <td>@trip.DestinationValues[5].Duration</td>
+                    </tr>
+                }
+                @if (trip.DestinationValues.Count > 6)
+                {
+                    <tr>
+                        <td>@trip.DestinationValues[5].Destination<input id="start6" type="hidden" value="@trip.DestinationValues[5].Destination"></td>
+                        <td>@trip.DestinationValues[6].Destination<input id="end6" type="hidden" value="@trip.DestinationValues[6].Destination"></td>
+                        <td>@trip.DestinationValues[6].Distance mi</td>
+                        <td>@trip.DestinationValues[6].Duration</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

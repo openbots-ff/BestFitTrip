@@ -1,46 +1,49 @@
 ﻿@model BestFitTrip.ViewModels.AddTripViewModel
-
+@{ViewData["Title"] = "Home"; }
 
 <style>
-      .destination-form{
-        display: inline-block; 
+    .destination-form {
+        display: inline-block;
         width: 550px;
         /*border: 5px solid turquoise;*/
         padding: 10px;
-      }
-      .directionsTable{
+    }
+
+    .directionsTable {
         display: inline-block;
         width: 50%;
         height: 50%;
         vertical-align: top;
-      }
+    }
 
-      .form-row{
+    .form-row {
         width: 100%;
-      }
-      /* Always set the map height explicitly to define the size of the div
+    }
+    /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-      #map {
+    #map {
         height: 350px;
         width: 550px;
         border: 2px outset;
+    }
 
-      }
-      .map-container{
+    .map-container {
         display: inline-block;
-      }
-      .panel{
+    }
+
+    .panel {
         display: inline-block;
         height: 500px;
         width: 500px;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
         height: 100%;
         margin: 0;
         padding: 0;
-      }
-      #floating-panel {
+    }
+
+    #floating-panel {
         position: absolute;
         top: 10px;
         left: 25%;
@@ -52,39 +55,40 @@
         font-family: 'Roboto','sans-serif';
         line-height: 30px;
         padding-left: 10px;
-      }
-      #right-panel {
+    }
+
+    #right-panel {
         font-family: 'Roboto','sans-serif';
         line-height: 30px;
         padding-left: 10px;
-        
-      }
+    }
 
-      #right-panel select, #right-panel input {
-        font-size: 15px;
-      }
+        #right-panel select, #right-panel input {
+            font-size: 15px;
+        }
 
-      #right-panel select {
-        width: 100%;
-      }
+        #right-panel select {
+            width: 100%;
+        }
 
-      #right-panel i {
-        font-size: 12px;
-      }
-      #right-panel {
+        #right-panel i {
+            font-size: 12px;
+        }
+
+    #right-panel {
         height: 500px;
         display: inline-block;
         overflow: auto;
-      }
-    </style>
+    }
+</style>
 
-<h1>Best Fit Trip</h1>
- 
-    <form asp-controller="Trip" asp-action="Index" method="post" class="destination-form">
-      <div class="form-row">
+<h1 class="text-info">Best Fit Trip</h1>
+
+<form asp-controller="Trip" asp-action="Index" method="post" class="destination-form">
+    <div class="form-row">
         <div class="form-group col-sm-6">
-          <label asp-for="address0">Start</label>
-          <input asp-for="address0" class="form-control" id="address0">
+            <label asp-for="address0">Start</label>
+            <input asp-for="address0" class="form-control" id="address0">
             <span asp-validation-for="address0" class="text-danger"></span>
         </div>
 
@@ -94,256 +98,255 @@
             <span asp-validation-for="Type" class="text-danger"></span>
         </div>
 
-      
-      </div>
 
-      <div class="form-row">
-        <div class="form-group col-sm-6">
-          <label asp-for="address1">Destination 1</label>
-          <input asp-for="address1" class="form-control" id="address1">
-         <span asp-validation-for="address1" class="text-danger"></span>
-        </div>
-        <div class="form-group col-sm-6">
-          <label asp-for="address2">Destination 2</label>
-          <input asp-for="address2" class="form-control" id="address2">
-        </div>   
-      </div>
-      
-      <div class="form-row">
-        <div class="form-group col-sm-6">
-          <label asp-for="address3">Destination 3</label>
-          <input asp-for="address3" class="form-control" id="address3">
-        </div>
-        <div class="form-group col-sm-6">
-          <label asp-for="address4">Destination 4</label>
-          <input asp-for="address4" class="form-control" id="address4">
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group col-sm-6">
-          <label asp-for="address5">Destination 5</label>
-          <input asp-for="address5" class="form-control" id="address5">
-        </div>
-        <div class="form-group col-sm-6">
-          <label asp-for="address6">Destination 6</label>
-          <input asp-for="address6" class="form-control" id="address6">
-        </div>
-      </div>
-
-      <input type="submit" class="btn btn-info" value="Submit">
-       <input id="submit" type="button" class="btn btn-danger" value="Show On Map">
-        
-    </form>
-
-    <div id="map-container-google-1" class="z-depth-1-half map-container">
-        <div id="map" ></div>
     </div>
 
-    @if (ViewBag.orderedTrips != null)
-    {
-<div class="directionsTable">
+    <div class="form-row">
+        <div class="form-group col-sm-6">
+            <label asp-for="address1">Destination 1</label>
+            <input asp-for="address1" class="form-control" id="address1">
+            <span asp-validation-for="address1" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-6">
+            <label asp-for="address2">Destination 2</label>
+            <input asp-for="address2" class="form-control" id="address2">
+        </div>
+    </div>
 
-    <table class="table table-bordered" style="border-right:none; float:left">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Start</th>
-                <th>End</th>
-                <th>Distance</th>
-                <th>Duration</th>
-                <!-- <th style="border:none;" ><input id="save" type="button" class="btn btn-danger" value="Save Trip" style="layout:center"></th> -->
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><input id="submit1" type="button" class="btn btn-info" value="Step 1"></td>
-                <td>@ViewBag.orderedTrips[0].Destination<input id="start1" type="hidden" value="@ViewBag.orderedTrips[0].Destination"></td>
-                <td>@ViewBag.orderedTrips[1].Destination<input id="end1" type="hidden" value="@ViewBag.orderedTrips[1].Destination"></td>
-                <td>@ViewBag.orderedTrips[1].Distance mi</td>
-                <td>@ViewBag.orderedTrips[1].Duration</td>
-            </tr>
+    <div class="form-row">
+        <div class="form-group col-sm-6">
+            <label asp-for="address3">Destination 3</label>
+            <input asp-for="address3" class="form-control" id="address3">
+        </div>
+        <div class="form-group col-sm-6">
+            <label asp-for="address4">Destination 4</label>
+            <input asp-for="address4" class="form-control" id="address4">
+        </div>
+    </div>
 
-            @if (ViewBag.orderedTrips.Count > 2)
-            {
-                <tr>
-                    <td><input id="submit2" type="button" class="btn btn-info" value="Step 2"></td>
-                    <td>@ViewBag.orderedTrips[1].Destination<input id="start2" type="hidden" value="@ViewBag.orderedTrips[1].Destination"></td>
-                    <td>@ViewBag.orderedTrips[2].Destination<input id="end2" type="hidden" value="@ViewBag.orderedTrips[2].Destination"></td>
-                    <td>@ViewBag.orderedTrips[2].Distance mi</td>
-                    <td>@ViewBag.orderedTrips[2].Duration</td>
-                </tr>
+    <div class="form-row">
+        <div class="form-group col-sm-6">
+            <label asp-for="address5">Destination 5</label>
+            <input asp-for="address5" class="form-control" id="address5">
+        </div>
+        <div class="form-group col-sm-6">
+            <label asp-for="address6">Destination 6</label>
+            <input asp-for="address6" class="form-control" id="address6">
+        </div>
+    </div>
 
-            }
-            @if (ViewBag.orderedTrips.Count > 3)
-            {
-                <tr>
-                    <td><input id="submit3" type="button" class="btn btn-info" value="Step 3"></td>
-                    <td>@ViewBag.orderedTrips[2].Destination<input id="start3" type="hidden" value="@ViewBag.orderedTrips[2].Destination"></td>
-                    <td>@ViewBag.orderedTrips[3].Destination<input id="end3" type="hidden" value="@ViewBag.orderedTrips[3].Destination"></td>
-                    <td>@ViewBag.orderedTrips[3].Distance mi</td>
-                    <td>@ViewBag.orderedTrips[3].Duration</td>
-                </tr>
+    <input type="submit" class="btn btn-info" value="Submit">
+    <input id="submit" type="button" class="btn btn-danger" value="Show On Map">
 
-            }
-            @if (ViewBag.orderedTrips.Count > 4)
-            {
-                <tr>
-                    <td><input id="submit4" type="button" class="btn btn-info" value="Step 4"></td>
-                    <td>@ViewBag.orderedTrips[3].Destination<input id="start4" type="hidden" value="@ViewBag.orderedTrips[3].Destination"></td>
-                    <td>@ViewBag.orderedTrips[4].Destination<input id="end4" type="hidden" value="@ViewBag.orderedTrips[4].Destination"></td>
-                    <td>@ViewBag.orderedTrips[4].Distance mi</td>
-                    <td>@ViewBag.orderedTrips[4].Duration</td>
-                </tr>
-            }
-            @if (ViewBag.orderedTrips.Count > 5)
-            {
-                <tr>
-                    <td><input id="submit5" type="button" class="btn btn-info" value="Step 5"></td>
-                    <td>@ViewBag.orderedTrips[4].Destination<input id="start5" type="hidden" value="@ViewBag.orderedTrips[4].Destination"></td>
-                    <td>@ViewBag.orderedTrips[5].Destination<input id="end5" type="hidden" value="@ViewBag.orderedTrips[5].Destination"></td>
-                    <td>@ViewBag.orderedTrips[5].Distance mi</td>
-                    <td>@ViewBag.orderedTrips[5].Duration</td>
-                </tr>
-            }
-            @if (ViewBag.orderedTrips.Count > 6)
-            {
-                <tr>
-                    <td><input id="submit6" type="button" class="btn btn-info" value="Step 6"></td>
-                    <td>@ViewBag.orderedTrips[5].Destination<input id="start6" type="hidden" value="@ViewBag.orderedTrips[5].Destination"></td>
-                    <td>@ViewBag.orderedTrips[6].Destination<input id="end6" type="hidden" value="@ViewBag.orderedTrips[6].Destination"></td>
-                    <td>@ViewBag.orderedTrips[6].Distance mi</td>
-                    <td>@ViewBag.orderedTrips[6].Duration</td>
-                </tr>
-            }
+</form>
 
-
-        </tbody>
-    </table>
-    <form asp-controller="Trip" asp-action="SaveTrip" method="post">
-        <label for="title">
-            Title:
-            <input id="title" type="text" name="title">
-        </label>
-        <input id="save" type="submit" class="btn btn-danger" value="Save Trip">
-    </form>
+<div id="map-container-google-1" class="z-depth-1-half map-container">
+    <div id="map"></div>
 </div>
+
+@if (ViewBag.orderedTrips != null)
+{
+    <div class="directionsTable">
+
+        <table class="table table-bordered" style="border-right:none; float:left">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Distance</th>
+                    <th>Duration</th>
+                    <!-- <th style="border:none;" ><input id="save" type="button" class="btn btn-danger" value="Save Trip" style="layout:center"></th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input id="submit1" type="button" class="btn btn-info" value="Step 1"></td>
+                    <td>@ViewBag.orderedTrips[0].Destination<input id="start1" type="hidden" value="@ViewBag.orderedTrips[0].Destination"></td>
+                    <td>@ViewBag.orderedTrips[1].Destination<input id="end1" type="hidden" value="@ViewBag.orderedTrips[1].Destination"></td>
+                    <td>@ViewBag.orderedTrips[1].Distance mi</td>
+                    <td>@ViewBag.orderedTrips[1].Duration</td>
+                </tr>
+
+                @if (ViewBag.orderedTrips.Count > 2)
+                {
+                    <tr>
+                        <td><input id="submit2" type="button" class="btn btn-info" value="Step 2"></td>
+                        <td>@ViewBag.orderedTrips[1].Destination<input id="start2" type="hidden" value="@ViewBag.orderedTrips[1].Destination"></td>
+                        <td>@ViewBag.orderedTrips[2].Destination<input id="end2" type="hidden" value="@ViewBag.orderedTrips[2].Destination"></td>
+                        <td>@ViewBag.orderedTrips[2].Distance mi</td>
+                        <td>@ViewBag.orderedTrips[2].Duration</td>
+                    </tr>
+
+                }
+                @if (ViewBag.orderedTrips.Count > 3)
+                {
+                    <tr>
+                        <td><input id="submit3" type="button" class="btn btn-info" value="Step 3"></td>
+                        <td>@ViewBag.orderedTrips[2].Destination<input id="start3" type="hidden" value="@ViewBag.orderedTrips[2].Destination"></td>
+                        <td>@ViewBag.orderedTrips[3].Destination<input id="end3" type="hidden" value="@ViewBag.orderedTrips[3].Destination"></td>
+                        <td>@ViewBag.orderedTrips[3].Distance mi</td>
+                        <td>@ViewBag.orderedTrips[3].Duration</td>
+                    </tr>
+
+                }
+                @if (ViewBag.orderedTrips.Count > 4)
+                {
+                    <tr>
+                        <td><input id="submit4" type="button" class="btn btn-info" value="Step 4"></td>
+                        <td>@ViewBag.orderedTrips[3].Destination<input id="start4" type="hidden" value="@ViewBag.orderedTrips[3].Destination"></td>
+                        <td>@ViewBag.orderedTrips[4].Destination<input id="end4" type="hidden" value="@ViewBag.orderedTrips[4].Destination"></td>
+                        <td>@ViewBag.orderedTrips[4].Distance mi</td>
+                        <td>@ViewBag.orderedTrips[4].Duration</td>
+                    </tr>
+                }
+                @if (ViewBag.orderedTrips.Count > 5)
+                {
+                    <tr>
+                        <td><input id="submit5" type="button" class="btn btn-info" value="Step 5"></td>
+                        <td>@ViewBag.orderedTrips[4].Destination<input id="start5" type="hidden" value="@ViewBag.orderedTrips[4].Destination"></td>
+                        <td>@ViewBag.orderedTrips[5].Destination<input id="end5" type="hidden" value="@ViewBag.orderedTrips[5].Destination"></td>
+                        <td>@ViewBag.orderedTrips[5].Distance mi</td>
+                        <td>@ViewBag.orderedTrips[5].Duration</td>
+                    </tr>
+                }
+                @if (ViewBag.orderedTrips.Count > 6)
+                {
+                    <tr>
+                        <td><input id="submit6" type="button" class="btn btn-info" value="Step 6"></td>
+                        <td>@ViewBag.orderedTrips[5].Destination<input id="start6" type="hidden" value="@ViewBag.orderedTrips[5].Destination"></td>
+                        <td>@ViewBag.orderedTrips[6].Destination<input id="end6" type="hidden" value="@ViewBag.orderedTrips[6].Destination"></td>
+                        <td>@ViewBag.orderedTrips[6].Distance mi</td>
+                        <td>@ViewBag.orderedTrips[6].Duration</td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+        <form asp-controller="Trip" asp-action="SaveTrip" method="post">
+            <label for="title">
+                Title:
+                <input id="title" type="text" name="title">
+            </label>
+            <input id="save" type="submit" class="btn btn-danger" value="Save Trip">
+        </form>
+    </div>
+}
+
+
+<div class="container panel">
+    <div id="right-panel"></div>
+</div>
+
+<script>function autocomplete(address) {
+        var input = document.getElementById(address);
+        var autocomplete = new google.maps.places.Autocomplete(input);
     }
-    
 
-  <div class="container panel">
-  <div id="right-panel"></div>
-  </div>
+    function initMap() {
+        var directionsService = new google.maps.DirectionsService();
+        var directionsRenderer = new google.maps.DirectionsRenderer();
 
-  <script>
-function autocomplete(address) {
-            var input = document.getElementById(address);
-            var autocomplete = new google.maps.places.Autocomplete(input);
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 4,
+            center: { lat: 39.5, lng: -100.5 }
+        });
+        var geocoder = new google.maps.Geocoder();
+
+        directionsRenderer.setMap(map);
+        directionsRenderer.setPanel(document.getElementById('right-panel'));
+
+        document.getElementById('submit').addEventListener('click', function () {
+            geocodeAddress(geocoder, map);
+        });
+
+
+        var addresses = ['address0', 'address1', 'address2', 'address3', 'address4', 'address5', 'address6',];
+        for (i = 0; i < addresses.length; i++) {
+            autocomplete(addresses[i]);
         }
 
-        function initMap() {
-            var directionsService = new google.maps.DirectionsService();
-            var directionsRenderer = new google.maps.DirectionsRenderer();
+        ////directions
 
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 4,
-                center: { lat: 39.5, lng: -100.5 }
-            });
-            var geocoder = new google.maps.Geocoder();
-
-            directionsRenderer.setMap(map);
-            directionsRenderer.setPanel(document.getElementById('right-panel'));
-
-            document.getElementById('submit').addEventListener('click', function () {
-                geocodeAddress(geocoder, map);
-            });
+        var modeElement = document.getElementById("Type");
+        var mode = modeElement.options[modeElement.selectedIndex].text.toUpperCase();
 
 
-            var addresses = ['address0', 'address1', 'address2', 'address3', 'address4', 'address5', 'address6',];
-            for (i = 0; i < addresses.length; i++) {
-                autocomplete(addresses[i]);
-            }
-
-            ////directions
-
-            var modeElement = document.getElementById("Type");
-            var mode = modeElement.options[modeElement.selectedIndex].text.toUpperCase();
-
-
-            document.getElementById('submit1').addEventListener('click', function () {
-                calculateAndDisplayRoute(directionsService, directionsRenderer, 'start1', 'end1', mode);
-            });
-            document.getElementById('submit2').addEventListener('click', function () {
-                calculateAndDisplayRoute(directionsService, directionsRenderer, 'start2', 'end2', mode);
-            });
-            document.getElementById('submit3').addEventListener('click', function () {
-                calculateAndDisplayRoute(directionsService, directionsRenderer, 'start3', 'end3', mode);
-            });
-            document.getElementById('submit4').addEventListener('click', function () {
-                calculateAndDisplayRoute(directionsService, directionsRenderer, 'start4', 'end4', mode);
-            });
-            document.getElementById('submit5').addEventListener('click', function () {
-                calculateAndDisplayRoute(directionsService, directionsRenderer, 'start5', 'end5', mode);
-            });
-            document.getElementById('submit6').addEventListener('click', function () {
-                calculateAndDisplayRoute(directionsService, directionsRenderer, 'start6', 'end6', mode);
-            });
+        document.getElementById('submit1').addEventListener('click', function () {
+            calculateAndDisplayRoute(directionsService, directionsRenderer, 'start1', 'end1', mode);
+        });
+        document.getElementById('submit2').addEventListener('click', function () {
+            calculateAndDisplayRoute(directionsService, directionsRenderer, 'start2', 'end2', mode);
+        });
+        document.getElementById('submit3').addEventListener('click', function () {
+            calculateAndDisplayRoute(directionsService, directionsRenderer, 'start3', 'end3', mode);
+        });
+        document.getElementById('submit4').addEventListener('click', function () {
+            calculateAndDisplayRoute(directionsService, directionsRenderer, 'start4', 'end4', mode);
+        });
+        document.getElementById('submit5').addEventListener('click', function () {
+            calculateAndDisplayRoute(directionsService, directionsRenderer, 'start5', 'end5', mode);
+        });
+        document.getElementById('submit6').addEventListener('click', function () {
+            calculateAndDisplayRoute(directionsService, directionsRenderer, 'start6', 'end6', mode);
+        });
 
 
-        }
+    }
 
-        function geocodeAddress(geocoder, resultsMap) {
-            var addresses = ['address1', 'address2', 'address3', 'address4', 'address5', 'address6']
-            var marker;
-            var number = 1;
-            for (i = 0; i < addresses.length; i++) {
-                var address = document.getElementById(addresses[i]).value;
-                geocoder.geocode({ 'address': address }, function (results, status) {
-                    if (status === 'OK') {
-                        //resultsMap.setCenter(results[0].geometry.location);
-                        marker = new google.maps.Marker({
-                            map: resultsMap,
-                            position: results[0].geometry.location,
-                            //icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=' +
-                            //number + '|FF0000|000000'
-                        });
-                        number++;
-                    }
-                    // else {
-                    //   alert('Geocode was not successful for the following reason: ' + status);
-                    // }
-                });
-            }
-            var centerAddress = document.getElementById('address0').value;
-            geocoder.geocode({ 'address': centerAddress }, function (results, status) {
+    function geocodeAddress(geocoder, resultsMap) {
+        var addresses = ['address1', 'address2', 'address3', 'address4', 'address5', 'address6']
+        var marker;
+        var number = 1;
+        for (i = 0; i < addresses.length; i++) {
+            var address = document.getElementById(addresses[i]).value;
+            geocoder.geocode({ 'address': address }, function (results, status) {
                 if (status === 'OK') {
-                    resultsMap.setCenter(results[0].geometry.location);
+                    //resultsMap.setCenter(results[0].geometry.location);
                     marker = new google.maps.Marker({
                         map: resultsMap,
                         position: results[0].geometry.location,
-                        //icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=0|00FF00|000000'
+                        //icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=' +
+                        //number + '|FF0000|000000'
                     });
-                } else {
-                    alert('Geocode was not successful for the following reason: ' + status);
+                    number++;
                 }
+                // else {
+                //   alert('Geocode was not successful for the following reason: ' + status);
+                // }
             });
         }
-
-        function calculateAndDisplayRoute(directionsService, directionsRenderer, start, end, mode) {
-            //var waypts = ['address1', 'address2', 'address3', 'address4'];
-            directionsService.route(
-                {
-                    origin: { query: document.getElementById(start).value },
-                    destination: { query: document.getElementById(end).value },
-                    //waypoints: {query: document.getElementsByClassName('waypoint').value},
-                    //optimizeWaypoints: true,
-                    travelMode: mode
-                },
-                function (response, status) {
-                    if (status === 'OK') {
-                        directionsRenderer.setDirections(response);
-                    } else {
-                        window.alert('Directions request failed due to ' + status);
-                    }
+        var centerAddress = document.getElementById('address0').value;
+        geocoder.geocode({ 'address': centerAddress }, function (results, status) {
+            if (status === 'OK') {
+                resultsMap.setCenter(results[0].geometry.location);
+                marker = new google.maps.Marker({
+                    map: resultsMap,
+                    position: results[0].geometry.location,
+                    //icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=0|00FF00|000000'
                 });
-        }</script>
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+    }
+
+    function calculateAndDisplayRoute(directionsService, directionsRenderer, start, end, mode) {
+        //var waypts = ['address1', 'address2', 'address3', 'address4'];
+        directionsService.route(
+            {
+                origin: { query: document.getElementById(start).value },
+                destination: { query: document.getElementById(end).value },
+                //waypoints: {query: document.getElementsByClassName('waypoint').value},
+                //optimizeWaypoints: true,
+                travelMode: mode
+            },
+            function (response, status) {
+                if (status === 'OK') {
+                    directionsRenderer.setDirections(response);
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+    }</script>
