@@ -8,4 +8,4 @@ namespace BestFitTrip.Models
             return "AIzaSyClGGZWgr5ZIAJMe3yMmaW2dN1oAPqle88";
         }
     }
-}
+} 
