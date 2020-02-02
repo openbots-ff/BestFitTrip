@@ -17,7 +17,7 @@ namespace BestFitTrip.Controllers
         public TripController(TripDbContext dbContext)
         {
             context = dbContext;
-        }
+        } 
 
         public IActionResult Index()
         {
