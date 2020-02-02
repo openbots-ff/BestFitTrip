@@ -28,10 +28,4 @@
     <Folder Include="Views\User\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="wwwroot\**">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
 </Project>
