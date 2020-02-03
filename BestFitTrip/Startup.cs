@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using BestFitTrip.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,8 +27,6 @@ namespace BestFitTrip
         {
             services.AddDbContext<TripDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddDistributedMemoryCache();
 
