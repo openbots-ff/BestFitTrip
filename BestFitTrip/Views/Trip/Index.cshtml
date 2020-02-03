@@ -154,7 +154,6 @@
                     <th>End</th>
                     <th>Distance</th>
                     <th>Duration</th>
-                    <!-- <th style="border:none;" ><input id="save" type="button" class="btn btn-danger" value="Save Trip" style="layout:center"></th> -->
                 </tr>
             </thead>
             <tbody>
@@ -338,7 +337,11 @@
                 destination: { query: document.getElementById(end).value },
                 //waypoints: {query: document.getElementsByClassName('waypoint').value},
                 //optimizeWaypoints: true,
-                travelMode: mode
+                travelMode: mode,
+                transitOptions: {
+                    modes: ['BUS','RAIL'],
+                    routingPreference: 'FEWER_TRANSFERS'
+                }
             },
             function (response, status) {
                 if (status === 'OK') {
