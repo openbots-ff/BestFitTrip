@@ -11,7 +11,7 @@
 
     .directionsTable {
         display: inline-block;
-        width: 50%;
+        width: 550px;
         height: 50%;
         vertical-align: top;
     }
@@ -34,7 +34,7 @@
     .panel {
         display: inline-block;
         height: 500px;
-        width: 500px;
+        width: 550px;
     }
     /* Optional: Makes the sample page fill the window. */
     html, body {
@@ -63,17 +63,17 @@
         padding-left: 10px;
     }
 
-        #right-panel select, #right-panel input {
-            font-size: 15px;
-        }
+    #right-panel select, #right-panel input {
+        font-size: 15px;
+    }
 
-        #right-panel select {
-            width: 100%;
-        }
+    #right-panel select {
+        width: 100%;
+    }
 
-        #right-panel i {
-            font-size: 12px;
-        }
+    #right-panel i {
+        font-size: 12px;
+    }
 
     #right-panel {
         height: 500px;
@@ -82,54 +82,53 @@
     }
 </style>
 
+
 <h1 class="text-info">Best Fit Trip</h1>
 
 <form asp-controller="Trip" asp-action="Index" method="post" class="destination-form">
     <div class="form-row">
-        <div class="form-group col-sm-6">
+        <div class="form-group col-6">
             <label asp-for="address0">Start</label>
             <input asp-for="address0" class="form-control" id="address0">
             <span asp-validation-for="address0" class="text-danger"></span>
         </div>
 
-        <div class="form-group col-sm-6">
+        <div class="form-group col-6">
             <label asp-for="Type"></label>
             <select class="form-control" asp-for="Type" asp-items="Model.ModeTypes"></select>
             <span asp-validation-for="Type" class="text-danger"></span>
         </div>
-
-
     </div>
 
     <div class="form-row">
-        <div class="form-group col-sm-6">
+        <div class="form-group col-6">
             <label asp-for="address1">Destination 1</label>
             <input asp-for="address1" class="form-control" id="address1">
             <span asp-validation-for="address1" class="text-danger"></span>
         </div>
-        <div class="form-group col-sm-6">
+        <div class="form-group col-6">
             <label asp-for="address2">Destination 2</label>
             <input asp-for="address2" class="form-control" id="address2">
         </div>
     </div>
 
     <div class="form-row">
-        <div class="form-group col-sm-6">
+        <div class="form-group col-6">
             <label asp-for="address3">Destination 3</label>
             <input asp-for="address3" class="form-control" id="address3">
         </div>
-        <div class="form-group col-sm-6">
+        <div class="form-group col-6">
             <label asp-for="address4">Destination 4</label>
             <input asp-for="address4" class="form-control" id="address4">
         </div>
     </div>
 
     <div class="form-row">
-        <div class="form-group col-sm-6">
+        <div class="form-group col-6">
             <label asp-for="address5">Destination 5</label>
             <input asp-for="address5" class="form-control" id="address5">
         </div>
-        <div class="form-group col-sm-6">
+        <div class="form-group col-6">
             <label asp-for="address6">Destination 6</label>
             <input asp-for="address6" class="form-control" id="address6">
         </div>
@@ -137,7 +136,6 @@
 
     <input type="submit" class="btn btn-info" value="Submit">
     <input id="submit" type="button" class="btn btn-danger" value="Show On Map">
-
 </form>
 
 <div id="map-container-google-1" class="z-depth-1-half map-container">
@@ -239,6 +237,7 @@
     <div id="right-panel"></div>
 </div>
 
+
 <script>function autocomplete(address) {
         var input = document.getElementById(address);
         var autocomplete = new google.maps.places.Autocomplete(input);
@@ -291,8 +290,6 @@
         document.getElementById('submit6').addEventListener('click', function () {
             calculateAndDisplayRoute(directionsService, directionsRenderer, 'start6', 'end6', mode);
         });
-
-
     }
 
     function geocodeAddress(geocoder, resultsMap) {
@@ -327,7 +324,8 @@
                     //icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=0|00FF00|000000'
                 });
             } else {
-                alert('Geocode was not successful for the following reason: ' + status);
+                //alert('Geocode was not successful for the following reason: ' + status);
+                alert('Please enter a starting location');
             }
         });
     }
