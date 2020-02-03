@@ -9,7 +9,7 @@ namespace BestFitTrip.ViewModels
     {
 
         [Required]
-        [MinLength(6)]
+        [MinLength(6, ErrorMessage = "Password must be at least 6 characters long.")]
         public string Username { get; set; }
 
         [EmailAddress]
@@ -17,7 +17,7 @@ namespace BestFitTrip.ViewModels
         public string Email { get; set; }
 
         [Required]
-        [MinLength(6)]
+        [MinLength(8, ErrorMessage = "Password must be at least 8 characters long.")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

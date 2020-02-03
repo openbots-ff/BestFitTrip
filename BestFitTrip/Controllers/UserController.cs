@@ -60,7 +60,7 @@ namespace BestFitTrip.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (context.Users.Where(x => x.Username == registerUserViewModel.Username).SingleOrDefault() == null)
+                if (context.Users.Where(x => x.Username.ToLower() == registerUserViewModel.Username.ToLower()).SingleOrDefault() == null)
                 {
                     string hash = HashService.GetMd5Hash(md5Hash, registerUserViewModel.Password);
 
@@ -79,7 +79,7 @@ namespace BestFitTrip.Controllers
                 }
                 else
                 {
-                    ViewBag.UserExists = "This username already exists.";
+                    ViewBag.UserExists = "This username is already taken.";
                 }
             }
             return View(registerUserViewModel);
