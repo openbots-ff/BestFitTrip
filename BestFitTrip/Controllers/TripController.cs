@@ -70,11 +70,14 @@ namespace BestFitTrip.Controllers
                 TempData.TryGetValue("user", out u);
                 User user = JsonConvert.DeserializeObject<User>((string)u);
 
+                string mode = TempData["mode"].ToString();
+                mode = char.ToUpper(mode[0]) + mode.Substring(1);
+
                 Trip newTrip = new Trip
                 {
                     DestinationValues = destinationValues,
                     Title = title,
-                    Mode = TempData["mode"].ToString(),
+                    Mode = mode,
                     UserID = user.ID
                 };
 
